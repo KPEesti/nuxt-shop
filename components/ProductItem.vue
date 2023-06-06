@@ -1,0 +1,53 @@
+<template>
+  <div class="flex flex-col justify-center items-center">
+    <div class="wrapper cursor-pointer">
+      <img
+          @click.prevent="toProductDetail(product.id)"
+          class="w-80 rounded-lg" :src="product.src" alt="asd"
+      >
+      <button
+          class="relative w-full bottom-10 flex items-center justify-center h-10 bg-zinc-900 text-white opacity-0 buy">
+        Купить
+      </button>
+    </div>
+    <h2 @click.prevent="toProductDetail(product.id)" class="font-semibold text-xl cursor-pointer">{{ product.title }}</h2>
+    <span @click.prevent="toProductDetail(product.id)" class="cursor-pointer">Цена: {{ product.price }} &#8381;</span>
+  </div>
+</template>
+
+<script>
+
+export default {
+  name: "ProductItem",
+  props: {
+    product: {
+      src: String,
+      title: String,
+      id: Number,
+      price: Number,
+    }
+  },
+  setup() {
+    const router = useRouter();
+
+    const toProductDetail = (id) => {
+      router.push(`/product/${id}`);
+    };
+
+    return {
+      toProductDetail
+    }
+  }
+}
+</script>
+
+<style scoped>
+.buy {
+  opacity: 0;
+  transition: ease-in-out 0.3s;
+}
+
+.wrapper:hover .buy {
+  opacity: 1;
+}
+</style>
