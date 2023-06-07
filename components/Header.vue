@@ -15,8 +15,8 @@
       </NuxtLink>
     </div>
     <div class="flex justify-between w-1/12">
-      <img src="/cart-2-svgrepo-com.svg" alt="" class="w-7">
-      <img src="/person-svgrepo-com.svg" alt="" class="w-7">
+      <img src="/cart-2-svgrepo-com.svg" alt="" class="w-7 cursor-pointer">
+      <img src="/person-svgrepo-com.svg" alt="" class="w-7 cursor-pointer">
     </div>
   </div>
 </template>

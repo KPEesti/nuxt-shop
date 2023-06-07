@@ -3,15 +3,24 @@
     <div class="wrapper cursor-pointer">
       <img
           @click.prevent="toProductDetail(product.id)"
-          class="w-80 rounded-lg" :src="product.src" alt="asd"
+          class="w-80 rounded-lg" :src="product.images[0]" alt="asd"
       >
       <button
-          class="relative w-full bottom-10 flex items-center justify-center h-10 bg-zinc-900 text-white opacity-0 buy">
+          class="relative w-full bottom-10 flex items-center justify-center h-10 bg-zinc-900 text-white opacity-0 buy"
+      >
         Купить
       </button>
     </div>
-    <h2 @click.prevent="toProductDetail(product.id)" class="font-semibold text-xl cursor-pointer">{{ product.title }}</h2>
-    <span @click.prevent="toProductDetail(product.id)" class="cursor-pointer">Цена: {{ product.price }} &#8381;</span>
+    <h2
+        @click.prevent="toProductDetail(product.id)"
+        class="font-semibold text-xl cursor-pointer"
+    >{{ product.title }}</h2>
+    <span
+        @click.prevent="toProductDetail(product.id)"
+        class="cursor-pointer"
+    >
+      Цена: {{ product.price }} &#8381;
+    </span>
   </div>
 </template>
 
@@ -21,7 +30,7 @@ export default {
   name: "ProductItem",
   props: {
     product: {
-      src: String,
+      images: Array,
       title: String,
       id: Number,
       price: Number,
