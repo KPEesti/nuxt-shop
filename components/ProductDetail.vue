@@ -1,10 +1,11 @@
 <template>
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+  <Loader v-if="appStore.appStatus === AppStatus.LOADING"/>
+  <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-16">
     <div>
       <img class="rounded-xl" v-for="img in product.images" :src="img" alt="">
     </div>
     <div>
-      <h1 class="text-4xl font-meduim text-center">{{ product.title }}</h1>
+      <h1 class="text-4xl font-medium text-center">{{ product.title }}</h1>
       <div class="mt-8 w-10/12 m-auto">
         <span class="text-stone-800/30 font-light text-sm">Описание</span>
         <p class="text-base font-light">{{ product.description }}</p>
@@ -21,29 +22,31 @@
 </template>
 
 <script>
+import {useAppStore} from "~/store/app";
+import {AppStatus} from "~/utils/consts";
+
 export default {
   name: "ProductDetail",
+  created() {
+    this.appStore.setAppStatus(AppStatus.LOADING);
+  },
+  mounted() {
+    this.getProduct(this.$route.params.id);
+  },
   setup() {
-    const product = {
-      id: 1,
-      images: [
-        '/img/1.1.jpg'
-      ],
-      title: "Моно-серьга Звезда",
-      description: "В ассортименте наших изделий — новая звёздочка — моно-серьга со звездой. Она логично дополнит комплект из подвески и браслета или станет самостоятельным ярким акцентом.",
-      features: [
-        "Высота серьги (конго + подвеска): 31 мм.",
-        "Материал: Серебро 925.",
-        "Покрытие: Родий.",
-        "Вставка: Оникс.",
-      ],
-      price: 10800,
-      quantity: 2,
-    };
+    const appStore = useAppStore();
+    const product = null;
 
     return {
-      product
+      product,
+      appStore
     };
+  },
+  methods: {
+    async getProduct(id) {
+      this.product = await $fetch(`http://localhost:5000/products/${id}`);
+      this.appStore.setAppStatus(AppStatus.OK);
+    }
   }
 }
 </script>
