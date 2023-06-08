@@ -1,7 +1,7 @@
 <template>
   <Loader v-if="appStore.appStatus === AppStatus.LOADING"/>
   <div v-else class="grid grid-cols-1 lg:grid-cols-2 gap-16">
-    <div>
+    <div class="flex overflow-hidden">
       <img class="rounded-xl" v-for="img in product.images" :src="img" alt="">
     </div>
     <div>
