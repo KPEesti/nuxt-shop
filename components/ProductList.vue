@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import {useCatalogStore} from "~/store/Catalog";
+import {useCatalogStore} from "~/store/catalog";
 import {useAppStore} from "~/store/app";
 
 export default {
@@ -15,6 +15,7 @@ export default {
     const {getCatalog} = useCatalogStore();
 
     getCatalog();
+
   },
   setup() {
     const productStore = useCatalogStore();

@@ -15,15 +15,18 @@
       </NuxtLink>
     </div>
     <div class="flex justify-between w-1/12">
-      <img src="/cart-2-svgrepo-com.svg" alt="" class="w-7 cursor-pointer">
-      <img src="/person-svgrepo-com.svg" alt="" class="w-7 cursor-pointer">
+      <img src="/cart.svg" alt="" class="w-7 cursor-pointer" @click="openCart">
+      <img src="/person.svg" alt="" class="w-7 cursor-pointer">
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "Header"
+  name: "Header",
+  props: {
+    openCart: Function,
+  }
 }
 </script>
 
