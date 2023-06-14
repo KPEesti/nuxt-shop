@@ -25,34 +25,25 @@
   </div>
 </template>
 
-<script>
+<script setup lang="js">
 
 import {useCartStore} from "~/store/cart";
 
-export default {
-  name: "ProductItem",
-  props: {
-    product: {
-      images: Array,
-      title: String,
-      id: Number,
-      price: Number,
-    }
-  },
-  setup() {
-    const router = useRouter();
-    const cartStore = useCartStore();
-
-    const toProductDetail = (id) => {
-      router.push(`/product/${id}`);
-    };
-
-    return {
-      toProductDetail,
-      cartStore
-    }
+const {product} = defineProps({
+  product: {
+    images: Array,
+    title: String,
+    id: Number,
+    price: Number
   }
-}
+})
+const router = useRouter();
+const cartStore = useCartStore();
+
+const toProductDetail = (id) => {
+  router.push(`/product/${id}`);
+};
+
 </script>
 
 <style scoped>

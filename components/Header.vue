@@ -21,13 +21,10 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: "Header",
-  props: {
-    openCart: Function,
-  }
-}
+<script setup>
+const {openCart} = defineProps({
+  openCart: Function
+});
 </script>
 
 <style scoped>

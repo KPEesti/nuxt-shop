@@ -1,9 +1,9 @@
 <template>
   <transition name="fade">
-    <div v-if="pef" class="h-screen w-full bg-neutral-900/75 fixed z-50" @click="hideCart"></div>
+    <div v-if="isOpen" class="h-screen w-full bg-neutral-900/75 fixed z-50" @click="hideCart"></div>
   </transition>
   <transition name="slide">
-    <div v-if="pef" class="w-1/3 fixed flex flex-col justify-between bg-white top-0 -right-0 h-screen z-50 p-5">
+    <div v-if="isOpen" class="w-1/3 fixed flex flex-col justify-between bg-white top-0 -right-0 h-screen z-50 p-5">
       <h1 class="text-3xl ">Корзина</h1>
       <div v-if="cartStore.list.length !== 0" class=" w-full overflow-auto h-80 flex-1 scrollbar" id="style-3">
         <CartItem v-for="product in cartStore.list" :product="product" :delete-product="cartStore.deleteProduct"/>
@@ -19,44 +19,35 @@
   </transition>
 </template>
 
-<script>
+<script setup lang="ts">
 import {useCartStore} from "~/store/cart";
 
-export default {
-  name: "Cart",
-  emits: ['openCart'],
-  mounted() {
-    this.cartStore.getCart();
-  },
-  setup(props, ctx) {
-    const cartStore = useCartStore();
+const emits = defineEmits(['openCart']);
 
-    const isOpen = ref(false);
+const cartStore = useCartStore();
 
-    const showCart = () => {
-      isOpen.value = true;
-    };
+const isOpen = ref(false);
 
-    ctx.emit("openCart", showCart);
+const showCart = () => {
+  isOpen.value = true;
+};
 
-    const hideCart = () => {
-      isOpen.value = false;
-    };
+const hideCart = () => {
+  isOpen.value = false;
+};
 
+emits('openCart', showCart);
 
-    return {
-      pef: isOpen,
-      showCart,
-      hideCart,
-      cartStore
-    }
-  }
-}
+onMounted(() => {
+  cartStore.getCart();
+});
+
 </script>
+
 <style scoped>
 .slide-enter-active,
 .slide-leave-active {
-  transition: all 0.4s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .slide-enter-from,
@@ -66,7 +57,7 @@ export default {
 
 .fade-enter-active,
 .fade-leave-active {
-  transition: all 0.4s ease-out;
+  transition: all 0.3s ease-out;
 }
 
 .fade-enter-from,

@@ -1,32 +1,20 @@
 <template>
-  <Loader v-if="AppStore.appStatus === AppStatus.LOADING"/>
+  <Loader v-if="appStore.appStatus === AppStatus.LOADING"/>
   <div v-else class="grid grid-cols-1 gap-10 sm:grid-cols-2 md:grid-cols-3 2xl:grid-cols-4">
     <ProductItem v-for="product in productStore.products" :product="product"/>
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
 import {useCatalogStore} from "~/store/catalog";
 import {useAppStore} from "~/store/app";
 
-export default {
-  name: "ProductList",
-  created() {
-    const {getCatalog} = useCatalogStore();
+const productStore = useCatalogStore();
+const appStore = useAppStore();
 
-    getCatalog();
-
-  },
-  setup() {
-    const productStore = useCatalogStore();
-    const AppStore = useAppStore();
-
-    return {
-      productStore,
-      AppStore,
-    };
-  }
-}
+onMounted(() => {
+  productStore.getCatalog();
+});
 </script>
 
 <style scoped>
